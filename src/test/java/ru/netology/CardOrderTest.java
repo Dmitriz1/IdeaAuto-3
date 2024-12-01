@@ -1,16 +1,13 @@
 package ru.netology;
 
-import com.codeborne.selenide.Configuration;
+import com.WevDriverManager.chrome
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Selenide.*;
-
 public class CardOrderTest {
     @BeforeAll
-    static void setup() {
-        Configuration.headless = true; // Если необходимо, изменить на false для отладки
-        Configuration.baseUrl = "http://localhost:9999"; // Укажите базовый URL
+    public static void setupAll() {
+        WebDriverManager.chromedriver().setup();
     }
 
     @Test
