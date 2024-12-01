@@ -1,29 +1,34 @@
 package ru.netology;
 
-import com.WevDriverManager.chrome
+import com.codeborne.selenide.Configuration;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selenide.*;
 
 public class CardOrderTest {
     @BeforeAll
     public static void setupAll() {
         WebDriverManager.chromedriver().setup();
+        Configuration.headless = true; // Установите headless режим
+        Configuration.baseUrl = "http://localhost:9999"; // или 7777 в случае использования другого порта
     }
 
     @Test
-    void shouldSubmitOrderSuccessfully() {
-        open("/"); // Открываем главную страницу приложения
+    public void shouldSubmitFormSuccessfully() {
+        open("/"); // Открываем главную страницу
 
-        // Заполняем поля формы
-        $("input[name='surname']").setValue("Иванов");
-        $("input[name='name']").setValue("Иван");
-        $("input[name='phone']").setValue("+79001234567");
-        $("input[name='agreement']").click(); // Устанавливаем флажок
+        // Заполнение полей
+        $("#name").setValue("Иван Иванов");
+        $("#phone").setValue("+79161234567");
+        $("#agreement").click(); // Согласие
 
-        // Отправляем форму
-        $("button[type='submit']").click();
+        // Отправка формы
+        $("#submit").click();
 
-        // Проверяем успешное сообщение
-        $("div.notification__content").shouldHave(text("Заявка успешно отправлена"));
+        // Проверка сообщения об успехе
+        $(".notification").shouldHave(text("Заявка отправлена успешно"));
     }
 }
