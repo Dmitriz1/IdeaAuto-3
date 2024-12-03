@@ -24,7 +24,7 @@ public class CardOrderTest {
         $("[data-test-id='agreement']").click();
         $(By.className("button")).click();
 
-        String text = $(By.className("alert-success")).getText();
+        String text = $(By.className("Success_successBlock__2L3Cw")).getText();
         assertEquals("Ваша заявка успешно отправлена! " +
                 "Наш менеджер свяжется с вами в ближайшее время.", text.trim());
     }
