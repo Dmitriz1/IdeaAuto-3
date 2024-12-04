@@ -1,19 +1,13 @@
 package ru.netology;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CardOrderTest {
-    @BeforeAll
-    public static void setupAll() {
-        WebDriverManager.chromedriver().setup();
-    }
     @Test
     public void testOrderForm() {
         // Открытие страницы приложения
@@ -24,8 +18,7 @@ public class CardOrderTest {
         $("[data-test-id='agreement']").click();
         $(By.className("button")).click();
 
-        String text = $(By.className("Success_successBlock__2L3Cw")).getText();
-        assertEquals("Ваша заявка успешно отправлена! " +
-                "Наш менеджер свяжется с вами в ближайшее время.", text.trim());
+        $("[data-test-id='order-success']").shouldHave(text("Ваша заявка успешно отправлена! " +
+                "Наш менеджер свяжется с вами в ближайшее время."));
     }
 }
